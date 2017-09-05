@@ -10,3 +10,9 @@ This addon is built to run on node `v0.10.26` due to a legacy production environ
 This will be upgraded in the future, but for now, it is recomended that the above version is used
 
 **See [guidelines](https://github.com/A24Group/a24-ember-test-lib/blob/master/CONTRIBUTING.md) for contribution guidlines**
+
+### TO USE THIS LIB
+ * Copy the testProp folder from the root of this project to your own projects root
+ * Copy the ember.sh file from the root of this project to your own projects root
+ * Move all integration tests from the `tests` folder to the `testsTemplates` folder
+ * Run tests using `./ember.sh test` or `./ember.sh test-serve` both accepting an optional filter string

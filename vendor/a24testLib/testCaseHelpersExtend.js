@@ -768,13 +768,13 @@ if (typeof a24GenerateIntegrationSetup === "undefined") {
                 _createBackupGlobalA24();
 
                 // Call the funcBeforeEach if not empty
-                if (!a24.isEmpty(funcBeforeEach)) {
+                if (!isEmpty(funcBeforeEach)) {
                     funcBeforeEach.apply(this, [objAssert]);
                 }
             },
             afterEach: function (objAssert) {
                 // Call the funcAfterEach if not empty
-                if (!a24.isEmpty(funcAfterEach)) {
+                if (!isEmpty(funcAfterEach)) {
                     funcAfterEach.apply(this, [objAssert]);
                 }
 
@@ -828,13 +828,13 @@ if (typeof a24GenerateUnitSetup === "undefined") {
                 _createBackupGlobalA24();
 
                 // Call the funcBeforeEach if not empty
-                if (!a24.isEmpty(funcBeforeEach)) {
+                if (!isEmpty(funcBeforeEach)) {
                     funcBeforeEach.apply(this, [objAssert]);
                 }
             },
             afterEach: function (objAssert) {
                 // Call the funcAfterEach if not empty
-                if (!a24.isEmpty(funcAfterEach)) {
+                if (!isEmpty(funcAfterEach)) {
                     funcAfterEach.apply(this, [objAssert]);
                 }
 
