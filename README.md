@@ -1,3 +1,5 @@
+[ ![Codeship Status for A24Group/a24-ember-test-lib](https://app.codeship.com/projects/9df22820-7471-0135-5e9a-22a90e89452a/status?branch=master)](https://app.codeship.com/projects/243939)
+
 # a24-ember-test-lib
 A standardised set of ember test improvements focussing on stricter comparisons.
 
