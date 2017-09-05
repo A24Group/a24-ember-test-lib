@@ -1,0 +1,5 @@
+- type: serial
+  steps:
+    - name: Run Ember tests
+      service: a24embertestlib
+      command: node node_modules/.bin/ember test

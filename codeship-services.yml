@@ -1,0 +1,5 @@
+a24embertestlib:
+  build:
+    image: a24embertestlib
+    dockerfile_path: Dockerfile
+    encrypted_args_file: ci/build_args.encrypted
