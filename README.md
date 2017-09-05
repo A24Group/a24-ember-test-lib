@@ -2,7 +2,7 @@
 A standardised set of ember test improvements focussing on stricter comparisons.
 
 # Intent
-To improve apon the current test compares for a rendered component to actually compare html as apposed to just text.
+To improve upon the current test compares for a rendered component to actually compare html as apposed to just text.
 
 ## Requirements
 This addon is built to run on node `v0.10.26` due to a legacy production environment
