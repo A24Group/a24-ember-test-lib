@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/** Better highlighting for tests **/
+#qunit-tests del {
+    background-color: #fb4448 !important;
+    color: #000000 !important;
+    border: 1px solid #fb4448;
+}
+#qunit-tests ins {
+    background-color: #5aff5e !important;
+    color: #000000 !important;
+    border: 1px solid #5aff5e;
+}
+#qunit-tests del::after {
+    content: "DEL";
+    background-color: #fb4448 !important;
+    position: absolute;
+    left: 69px;
+    text-align: center;
+    width: 35px;
+}
+#qunit-tests ins::after {
+    content: "ADD";
+    background-color: #5aff5e !important;
+    position: absolute;
+    left: 34px;
+    text-align: center;
+    width: 35px;
+}
