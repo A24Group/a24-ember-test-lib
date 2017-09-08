@@ -5,7 +5,7 @@
     "keywords": [
         "ember-addon"
     ],
-    "license": "A24Group",
+    "license": "MIT",
     "author": "",
     "directories": {
         "doc": "doc",
@@ -21,7 +21,8 @@
         "ember-cli-babel": "5.1.10",
         "ember-cli-sass": "5.3.1",
         "ember-cli-htmlbars": "1.1.0",
-        "ember-cli-htmlbars-inline-precompile": "0.3.5"
+        "ember-cli-htmlbars-inline-precompile": "0.3.5",
+        "ember-responsive": "1.2.6"
     },
     "devDependencies": {
         "broccoli-asset-rev": "2.4.6",

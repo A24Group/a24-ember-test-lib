@@ -17050,18 +17050,6 @@
         }
       }
     },
-    "ember-responsive": {
-      "version": "1.2.6",
-      "from": "https://registry.npmjs.org/ember-responsive/-/ember-responsive-1.2.6.tgz",
-      "resolved": "https://registry.npmjs.org/ember-responsive/-/ember-responsive-1.2.6.tgz",
-      "dependencies": {
-        "ember-getowner-polyfill": {
-          "version": "1.0.0",
-          "from": "https://registry.npmjs.org/ember-getowner-polyfill/-/ember-getowner-polyfill-1.0.0.tgz",
-          "resolved": "https://registry.npmjs.org/ember-getowner-polyfill/-/ember-getowner-polyfill-1.0.0.tgz"
-        }
-      }
-    },
     "loader.js": {
       "version": "4.0.11",
       "from": "https://registry.npmjs.org/loader.js/-/loader.js-4.0.11.tgz",
