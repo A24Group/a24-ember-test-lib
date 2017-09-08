@@ -764,9 +764,6 @@ if (typeof a24GenerateIntegrationSetup === "undefined") {
                 a24SetBrowserHeight(objEmber, 720);
                 // ***********************************
 
-                // Backup global a24
-                _createBackupGlobalA24();
-
                 // Call the funcBeforeEach if not empty
                 if (!isEmpty(funcBeforeEach)) {
                     funcBeforeEach.apply(this, [objAssert]);
@@ -777,8 +774,6 @@ if (typeof a24GenerateIntegrationSetup === "undefined") {
                 if (!isEmpty(funcAfterEach)) {
                     funcAfterEach.apply(this, [objAssert]);
                 }
-
-                _restoreBackupGlobalA24();
 
                 /**
                  * The code below will be used to restore browser changes made
@@ -824,9 +819,6 @@ if (typeof a24GenerateUnitSetup === "undefined") {
                 //Reset variables
                 a24ResetDelayTask();
 
-                // Backup global a24
-                _createBackupGlobalA24();
-
                 // Call the funcBeforeEach if not empty
                 if (!isEmpty(funcBeforeEach)) {
                     funcBeforeEach.apply(this, [objAssert]);
@@ -837,8 +829,6 @@ if (typeof a24GenerateUnitSetup === "undefined") {
                 if (!isEmpty(funcAfterEach)) {
                     funcAfterEach.apply(this, [objAssert]);
                 }
-
-                _restoreBackupGlobalA24();
 
                 _objStoredThis = null;
             }
@@ -875,71 +865,6 @@ if (typeof a24GenerateRouteSetup === "undefined") {
 
         return objUnitSetupForRoute;
     };
-}
-
-if (typeof _createBackupGlobalA24 === "undefined") {
-    /**
-     * Create backup copies of a24 global helpers
-     *
-     * @author Michael Barnard <michael.barnard@a24group.com>
-     * @since  2 September 2016
-     */
-    function _createBackupGlobalA24() {
-        /**
-         * The code below will be used to create copies of our global objects.
-         *
-         * This allows developers to change the methods in each test without having them worry
-         * about it affecting any of the other tests.
-         */
-            // ***********************************
-        _arrGlobalClassesBackups["a24"] = $.extend(true, {}, a24);
-        _arrGlobalClassesBackups["a24Enums"] = $.extend(true, {}, a24Enums);
-        _arrGlobalClassesBackups["a24RSVP"] = $.extend(true, {}, a24RSVP);
-        _arrGlobalClassesBackups["a24Constants"] = $.extend(true, {}, a24Constants);
-        _arrGlobalClassesBackups["a24DateManager"] = $.extend(true, {}, a24DateManager);
-        _arrGlobalClassesBackups["a24RestUrlConstruct"] = $.extend(true, {}, a24RestUrlConstruct);
-        _arrGlobalClassesBackups["a24RestCallHelper"] = $.extend(true, {}, a24RestCallHelper);
-        _arrGlobalClassesBackups["a24RestResponseHandler"] = $.extend(true, {}, a24RestResponseHandler);
-        _arrGlobalClassesBackups["a24SafeStrings"] = $.extend(true, {}, a24SafeStrings);
-        _arrGlobalClassesBackups["a24Strings"] = $.extend(true, {}, a24Strings);
-        _arrGlobalClassesBackups["a24TokenStrings"] = $.extend(true, {}, a24TokenStrings);
-        _arrGlobalClassesBackups["a24Validation"] = $.extend(true, {}, a24Validation);
-        _arrGlobalClassesBackups["momentHelper"] = $.extend(true, {}, momentHelper);
-        _arrGlobalClassesBackups["objTimeZoneDate"] = $.extend(true, {}, _objTimeZoneDate);
-        // ***********************************
-    }
-}
-
-if (typeof _restoreBackupGlobalA24 === "undefined") {
-    /**
-     * Restore backup copies of a24 global helpers
-     *
-     * @author Michael Barnard <michael.barnard@a24group.com>
-     * @since  2 September 2016
-     */
-    function _restoreBackupGlobalA24() {
-        /**
-         * The code below will be used to restore copies of our global objects.
-         */
-            // ***********************************
-        a24 = $.extend(true, {}, _arrGlobalClassesBackups["a24"]);
-        a24Enums = $.extend(true, {}, _arrGlobalClassesBackups["a24Enums"]);
-        a24RSVP = $.extend(true, {}, _arrGlobalClassesBackups["a24RSVP"]);
-        a24Constants = $.extend(true, {}, _arrGlobalClassesBackups["a24Constants"]);
-        a24DateManager = $.extend(true, {}, _arrGlobalClassesBackups["a24DateManager"]);
-        a24RestUrlConstruct = $.extend(true, {}, _arrGlobalClassesBackups["a24RestUrlConstruct"]);
-        a24RestCallHelper = $.extend(true, {}, _arrGlobalClassesBackups["a24RestCallHelper"]);
-        a24RestResponseHandler = $.extend(true, {}, _arrGlobalClassesBackups["a24RestResponseHandler"]);
-        a24SafeStrings = $.extend(true, {}, _arrGlobalClassesBackups["a24SafeStrings"]);
-        a24Strings = $.extend(true, {}, _arrGlobalClassesBackups["a24Strings"]);
-        a24TokenStrings = $.extend(true, {}, _arrGlobalClassesBackups["a24TokenStrings"]);
-        a24Validation = $.extend(true, {}, _arrGlobalClassesBackups["a24Validation"]);
-        momentHelper = $.extend(true, {}, _arrGlobalClassesBackups["momentHelper"]);
-        _objTimeZoneDate = $.extend(true, {}, _arrGlobalClassesBackups["objTimeZoneDate"]);
-        // Reset the array
-        _arrGlobalClassesBackups = [];
-        // ***********************************
-    }
 }
 
 if (typeof a24DoTask === "undefined") {
