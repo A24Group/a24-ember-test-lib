@@ -111,6 +111,7 @@ if (typeof a24TemplateCompare === "undefined") {
         sHtml = sHtml.replace(/ style=""/g, ""); // Remove empty style attribute
         sHtml = sHtml.replace(/ style=" "/g, ""); // Remove empty style attribute
         sHtml = sHtml.replace(/ aria-describedby="tooltip\d{1,}"/g, " aria-describedby=\"tooltip\""); // Remove tooltip ids
+        sHtml = sHtml.replace(/ id="tooltip\d{1,}"/g, " id=\"tooltip\""); // Remove tooltip ids
 
         //Remove the space the datepicker adds for the month
         sHtml = sHtml.replace(/ title="Previous month"> <\/div>/g, ' title="Previous month"></div>');
@@ -184,6 +185,12 @@ if (typeof a24TemplateCompare === "undefined") {
             sHtml = sHtml.replace(/"left:[\s][\S]*px;[\s]/g, "\"");// With space at back, this means the value is in front
             sHtml = sHtml.replace(/[\s]left:[\s][\S]*px;"/g, "\"");// With space at front, this means the value is at back
             sHtml = sHtml.replace(/"left:[\s][\S]*px;"/g, "\"\"");// With no spaces
+        }
+        if (objAssert.bStripCssTransform) {
+            sHtml = sHtml.replace(/[\s]transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);[\s]/g, " ");// With space in front and back
+            sHtml = sHtml.replace(/"transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);[\s]/g, "\"");// With space at back, this means the value is in front
+            sHtml = sHtml.replace(/[\s]transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);"/g, "\"");// With space at front, this means the value is at back
+            sHtml = sHtml.replace(/"transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);"/g, "\"\"");// With no spaces
         }
 
         //PhantomJs will replace 0px with 0(only sometimes apparently), so we have to search for any 0px in styles
@@ -255,6 +262,7 @@ if (typeof a24TemplateCompareWithSave === "undefined") {
         sHtml = sHtml.replace(/ style=""/g, ""); // Remove empty style attribute
         sHtml = sHtml.replace(/ style=" "/g, ""); // Remove empty style attribute
         sHtml = sHtml.replace(/ aria-describedby="tooltip\d{1,}"/g, " aria-describedby=\"tooltip\""); // Remove tooltip ids
+        sHtml = sHtml.replace(/ id="tooltip\d{1,}"/g, " id=\"tooltip\""); // Remove tooltip ids
 
         //Remove the space the datepicker adds for the month
         sHtml = sHtml.replace(/ title="Previous month"> <\/div>/g, ' title="Previous month"></div>');
@@ -327,6 +335,12 @@ if (typeof a24TemplateCompareWithSave === "undefined") {
             sHtml = sHtml.replace(/"left:[\s][\S]*px;[\s]/g, "\"");// With space at back, this means the value is in front
             sHtml = sHtml.replace(/[\s]left:[\s][\S]*px;"/g, "\"");// With space at front, this means the value is at back
             sHtml = sHtml.replace(/"left:[\s][\S]*px;"/g, "\"\"");// With no spaces
+        }
+        if (objAssert.bStripCssTransform) {
+            sHtml = sHtml.replace(/[\s]transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);[\s]/g, " ");// With space in front and back
+            sHtml = sHtml.replace(/"transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);[\s]/g, "\"");// With space at back, this means the value is in front
+            sHtml = sHtml.replace(/[\s]transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);"/g, "\"");// With space at front, this means the value is at back
+            sHtml = sHtml.replace(/"transform:[\s]translate3d\([\S]*px,[\s][\S]*px,[\s][\S]*\);"/g, "\"\"");// With no spaces
         }
 
         //PhantomJs will replace 0px with 0(only sometimes apparently), so we have to search for any 0px in styles
@@ -764,16 +778,21 @@ if (typeof a24GenerateIntegrationSetup === "undefined") {
                 a24SetBrowserHeight(objEmber, 720);
                 // ***********************************
 
+                // Backup global a24
+                _createBackupGlobalA24();
+
                 // Call the funcBeforeEach if not empty
-                if (!isEmpty(funcBeforeEach)) {
+                if (typeof funcBeforeEach !== "undefined") {
                     funcBeforeEach.apply(this, [objAssert]);
                 }
             },
             afterEach: function (objAssert) {
                 // Call the funcAfterEach if not empty
-                if (!isEmpty(funcAfterEach)) {
+                if (typeof funcAfterEach !== "undefined") {
                     funcAfterEach.apply(this, [objAssert]);
                 }
+
+                _restoreBackupGlobalA24();
 
                 /**
                  * The code below will be used to restore browser changes made
@@ -819,16 +838,21 @@ if (typeof a24GenerateUnitSetup === "undefined") {
                 //Reset variables
                 a24ResetDelayTask();
 
+                // Backup global a24
+                _createBackupGlobalA24();
+
                 // Call the funcBeforeEach if not empty
-                if (!isEmpty(funcBeforeEach)) {
+                if (typeof funcBeforeEach !== "undefined") {
                     funcBeforeEach.apply(this, [objAssert]);
                 }
             },
             afterEach: function (objAssert) {
                 // Call the funcAfterEach if not empty
-                if (!isEmpty(funcAfterEach)) {
+                if (typeof funcAfterEach !== "undefined") {
                     funcAfterEach.apply(this, [objAssert]);
                 }
+
+                _restoreBackupGlobalA24();
 
                 _objStoredThis = null;
             }
@@ -865,6 +889,73 @@ if (typeof a24GenerateRouteSetup === "undefined") {
 
         return objUnitSetupForRoute;
     };
+}
+
+if (typeof _createBackupGlobalA24 === "undefined") {
+    /**
+     * Create backup copies of a24 global helpers
+     *
+     * @author Michael Barnard <michael.barnard@a24group.com>
+     * @since  2 September 2016
+     */
+    function _createBackupGlobalA24() {
+
+        /**
+         * The code below will be used to create copies of our global objects.
+         *
+         * This allows developers to change the methods in each test without having them worry
+         * about it affecting any of the other tests.
+         */
+        // ***********************************
+        _arrGlobalClassesBackups["a24"] = $.extend(true, {}, typeof a24 !== "undefined" ? a24 : {} );
+        _arrGlobalClassesBackups["a24Enums"] = $.extend(true, {}, typeof a24Enums !== "undefined" ? a24Enums : {});
+        _arrGlobalClassesBackups["a24RSVP"] = $.extend(true, {}, typeof a24RSVP !== "undefined" ? a24RSVP : {});
+        _arrGlobalClassesBackups["a24Constants"] = $.extend(true, {}, typeof a24Constants !== "undefined" ? a24Constants : {});
+        _arrGlobalClassesBackups["a24DateManager"] = $.extend(true, {}, typeof a24DateManager !== "undefined" ? a24DateManager : {});
+        _arrGlobalClassesBackups["a24RestUrlConstruct"] = $.extend(true, {}, typeof a24RestUrlConstruct !== "undefined" ? a24RestUrlConstruct : {});
+        _arrGlobalClassesBackups["a24RestCallHelper"] = $.extend(true, {}, typeof a24RestCallHelper !== "undefined" ? a24RestCallHelper : {});
+        _arrGlobalClassesBackups["a24RestResponseHandler"] = $.extend(true, {}, typeof a24RestResponseHandler !== "undefined" ? a24RestResponseHandler : {});
+        _arrGlobalClassesBackups["a24SafeStrings"] = $.extend(true, {}, typeof a24SafeStrings !== "undefined" ? a24SafeStrings : {});
+        _arrGlobalClassesBackups["a24Strings"] = $.extend(true, {}, typeof a24Strings !== "undefined" ? a24Strings : {});
+        _arrGlobalClassesBackups["a24TokenStrings"] = $.extend(true, {}, typeof a24TokenStrings !== "undefined" ? a24TokenStrings : {});
+        _arrGlobalClassesBackups["a24Validation"] = $.extend(true, {}, typeof a24Validation !== "undefined" ? a24Validation : {});
+        _arrGlobalClassesBackups["momentHelper"] = $.extend(true, {}, typeof momentHelper !== "undefined" ? momentHelper : {});
+        _arrGlobalClassesBackups["objTimeZoneDate"] = $.extend(true, {}, typeof _objTimeZoneDate !== "undefined" ? _objTimeZoneDate : {});
+        // ***********************************
+    }
+}
+
+if (typeof _restoreBackupGlobalA24 === "undefined") {
+    /**
+     * Restore backup copies of a24 global helpers
+     *
+     * @author Michael Barnard <michael.barnard@a24group.com>
+     * @since  2 September 2016
+     */
+    function _restoreBackupGlobalA24() {
+
+        /**
+         * The code below will be used to restore copies of our global objects.
+         */
+        // ***********************************
+        a24 = $.extend(true, {}, _arrGlobalClassesBackups["a24"]);
+        a24Enums = $.extend(true, {}, _arrGlobalClassesBackups["a24Enums"]);
+        a24RSVP = $.extend(true, {}, _arrGlobalClassesBackups["a24RSVP"]);
+        a24Constants = $.extend(true, {}, _arrGlobalClassesBackups["a24Constants"]);
+        a24DateManager = $.extend(true, {}, _arrGlobalClassesBackups["a24DateManager"]);
+        a24RestUrlConstruct = $.extend(true, {}, _arrGlobalClassesBackups["a24RestUrlConstruct"]);
+        a24RestCallHelper = $.extend(true, {}, _arrGlobalClassesBackups["a24RestCallHelper"]);
+        a24RestResponseHandler = $.extend(true, {}, _arrGlobalClassesBackups["a24RestResponseHandler"]);
+        a24SafeStrings = $.extend(true, {}, _arrGlobalClassesBackups["a24SafeStrings"]);
+        a24Strings = $.extend(true, {}, _arrGlobalClassesBackups["a24Strings"]);
+        a24TokenStrings = $.extend(true, {}, _arrGlobalClassesBackups["a24TokenStrings"]);
+        a24Validation = $.extend(true, {}, _arrGlobalClassesBackups["a24Validation"]);
+        momentHelper = $.extend(true, {}, _arrGlobalClassesBackups["momentHelper"]);
+        _objTimeZoneDate = $.extend(true, {}, _arrGlobalClassesBackups["objTimeZoneDate"]);
+        // Reset the array
+        _arrGlobalClassesBackups = [];
+        // ***********************************
+    }
 }
 
 if (typeof a24DoTask === "undefined") {
@@ -923,33 +1014,3 @@ if (typeof a24SetBrowserHeightByPixels === "undefined") {
         a24SetBrowserHeight(_objStoredEmber, iHeight);
     };
 }
-
-var isEmpty = function(objValue) {
-    if (
-        typeof(objValue) === "undefined" ||
-        objValue === null ||
-        (typeof(objValue) === "string" && objValue.trim().length === 0) ||
-        (objValue instanceof Array && objValue.length === 0) ||
-        // Ember components that are being removed from the dom, may partially exist
-        // this code detects when there were dom changes, but the ember js object is still in memory
-        // previously doing a get would have given a console error
-        // doing "get" on a null
-        (
-            objValue instanceof Object &&
-            (
-                objValue.isDestroyed ||
-                objValue.isDestroying
-            )
-        ) ||
-        (
-            objValue instanceof Object &&
-            (
-                objValue.constructor.prototype.jquery &&
-                objValue.length === 0
-            )
-        )
-    ) {
-        return true;
-    }
-    return false;
-};
