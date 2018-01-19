@@ -1,6 +1,6 @@
 {
   "name": "a24-ember-test-lib",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "dependencies": {
     "broccoli-asset-rev": {
       "version": "2.4.6",
