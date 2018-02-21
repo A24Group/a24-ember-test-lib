@@ -1,5 +1,9 @@
 - type: serial
   steps:
+    - name: Check should run test
+      exclude: master
+      service: a24Check
+      command: /bin/bash -c 'if [[ $CI_COMMIT_DESCRIPTION =~ .*--build-ci.* ]] || [[ $CI_COMMIT_MESSAGE =~ .*--build-ci.* ]]; then (exit 0) else (exit 1) fi;'
     - name: Run Ember tests
       service: a24embertestlib
       command: node node_modules/.bin/ember test
