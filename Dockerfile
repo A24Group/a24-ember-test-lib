@@ -30,7 +30,7 @@ RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --install  # This load
 
 # Install the correct node version based on the nvm rc
 COPY .nvmrc ./
-RUN bash -c 'source /etc/profile && node -v'
+RUN bash -c 'source /etc/profile && npm install -g yarn@1.7.0 && node -v'
 
 # Do github keyscan
 RUN ssh-keyscan -T 10 github.com >> ~/.ssh/known_hosts
@@ -42,13 +42,14 @@ ARG PRIVATE_SSH_KEY
 # =======================
 
 COPY package.json ./
+COPY yarn.lock ./
 
 # Keep this one command, to not expose the secret.
 # This will also do an npm install
 RUN echo "$PRIVATE_SSH_KEY" >> $HOME/.ssh/id_rsa \
     && chmod o-rw $HOME/.ssh/id_rsa \
     && chmod g-rw $HOME/.ssh/id_rsa \
-    && bash -c 'source /etc/profile && npm install' \
+    && bash -c 'source /etc/profile && yarn install' \
     && rm $HOME/.ssh/id_rsa
 
 # Add the application source code
