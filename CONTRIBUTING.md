@@ -109,7 +109,7 @@ Ember generate should place down any tests classes that you need to fill. It is 
 have as much coverage as they can.
 
 #### Integration Test Cases
-These are based on a per implementation case. This should try and cover as much cases as possible. 
+These are based on a per implementation case. This should try and cover as much cases as possible.
 
 ### Some additional info
  * If you feel that these guidelines are unclear or are missing something, feel free to add it. Note that this will have to be done
