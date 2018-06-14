@@ -21,6 +21,12 @@
     {{content-for "body"}}
     {{content-for "test-body"}}
 
+    <script>
+        //By default test that fail will be run first the next time around, this stops that from happening since
+        //some test may rely on other test to finish
+        QUnit.config.reorder = false;
+    </script>
+
     <script src="/testem.js" integrity=""></script>
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/test-support.js"></script>
