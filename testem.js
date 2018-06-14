@@ -13,7 +13,6 @@ module.exports = {
             ci: [
                 // --no-sandbox is needed when running Chrome inside a container
                 "--no-sandbox",
-
                 "--disable-gpu",
                 "--headless",
                 "--remote-debugging-port=0"

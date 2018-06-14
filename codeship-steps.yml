@@ -6,4 +6,4 @@
       command: /bin/bash -c 'if [[ $CI_COMMIT_DESCRIPTION =~ .*--build-ci.* ]] || [[ $CI_COMMIT_MESSAGE =~ .*--build-ci.* ]]; then (exit 0) else (exit 1) fi;'
     - name: Run Ember tests
       service: a24embertestlib
-      command: node node_modules/.bin/ember test
+      command: /bin/bash -c 'source /etc/profile && node node_modules/.bin/ember test'
