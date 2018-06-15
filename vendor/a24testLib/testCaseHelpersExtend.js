@@ -773,7 +773,10 @@ if (typeof a24GenerateIntegrationSetup === "undefined") {
                         + "px; width: 100%; background-color: #D2E0E6;position: absolute;top: 0px;"
                 );
                 $("#qunit").attr("style", "position: absolute;top: " + iViewportHeight + "px;width: 100%;");
-                $("#ember-testing").attr("style", "zoom: 100% !important; background-color: #ffffff; margin: 0 auto;");
+                $("#ember-testing").attr(
+                    "style",
+                    "zoom: 100% !important; background-color: #ffffff; margin: 0 auto; transform:none !important;"
+                );
                 a24SetBrowserWidth(objEmber, this, funcSetBreakpointForTest, 1240);
                 a24SetBrowserHeight(objEmber, 720);
                 // ***********************************
