@@ -73,6 +73,22 @@ if (typeof a24SetInputDropdownValue === "undefined") {
     }
 }
 
+if (typeof a24SetInputDateValue === "undefined") {
+    var a24SetInputDateValue = function (sFieldName, sValue, iIndex) {
+       a24DoTask(
+           100,
+           function() {
+               if (typeof iIndex === "undefined") {
+                   iIndex = 0;
+               }
+               a24GetElementFromText(
+                   $, "label", sFieldName, true
+               ).eq(iIndex).parent().find(".datepicker").eq(0).trigger("onSetDateForTest", sValue);
+           }
+       );undefined
+    }
+}
+
 if (typeof a24TemplateCompare === "undefined") {
     /**
      * This function is used to compare the html output of ember with the output of the
