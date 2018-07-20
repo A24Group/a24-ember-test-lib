@@ -9,6 +9,7 @@ if (typeof a24GetElementFromText === "undefined") {
                     return objJquery(this)[0].outerText.trim() === sText;
                 }
             );
+
         } else {
             return objJquery(sTag + ":contains('" + sText + "')");
         }
@@ -68,6 +69,60 @@ if (typeof a24SetInputDropdownValue === "undefined") {
                     top: "0",
                     left: "0"
                 })
+            }
+        );
+    }
+}
+
+if (typeof a24SetInputDateValue === "undefined") {
+    var a24SetInputDateValue = function (sFieldName, sValue, iIndex) {
+       a24DoTask(
+           100,
+           function() {
+               if (typeof iIndex === "undefined") {
+                   iIndex = 0;
+               }
+               a24GetElementFromText(
+                   $, "label", sFieldName, true
+               ).eq(iIndex).parent().find(".datepicker").eq(0).trigger("onSetDateForTest", sValue);
+           }
+       );
+    }
+}
+
+if (typeof a24SetInputTelNumberCountryCodeValue === "undefined") {
+    var a24SetInputTelNumberCountryCodeValue = function (sFieldName, sValue, iIndex) {
+        a24DoTask(
+            100,
+            function() {
+                if (typeof iIndex === "undefined") {
+                    iIndex = 0;
+                }
+                a24GetElementFromText(
+                    $, ".a24TelInput .a24InputHeader", sFieldName, true
+                ).eq(iIndex).parent().find(".input-tel-number-placeholder").eq(0).trigger("onSetCountryCodeForTest", sValue);
+            }
+        );
+    }
+}
+
+if (typeof a24SetInputTelNumberValue === "undefined") {
+    var a24SetInputTelNumberValue = function (sFieldName, sValue, iIndex) {
+        a24DoTask(
+            100,
+            function() {
+                if (typeof iIndex === "undefined") {
+                    iIndex = 0;
+                }
+                a24GetElementFromText(
+                    $, ".a24TelInput .a24InputHeader", sFieldName, true
+                ).eq(iIndex).parent().find("input").eq(0).val(sValue);
+                a24GetElementFromText(
+                    $, ".a24TelInput .a24InputHeader", sFieldName, true
+                ).eq(iIndex).parent().find("input").eq(0).change();
+                a24GetElementFromText(
+                    $, ".a24TelInput .a24InputHeader", sFieldName, true
+                ).eq(iIndex).parent().find("input").eq(0).blur();
             }
         );
     }
