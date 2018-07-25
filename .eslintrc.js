@@ -17,7 +17,8 @@ module.exports = {
     rules: {
         //Disabling the ember rule for jquery, since we need jquery global for MDB
         "ember/no-global-jquery": "off",
-        "ember/no-jquery": "off"
+        "ember/no-jquery": "off",
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^objAssert$"}]
     },
     overrides: [
         // node files
