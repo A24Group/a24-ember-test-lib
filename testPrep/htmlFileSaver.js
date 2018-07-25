@@ -28,11 +28,11 @@ const objServer = http.createServer(function(objRequest, objResponse) {
             // Push various chuncks to body
             mBody.push(objChunk);
         }).on("end", function() {
-            
+
             // store final body
             mBody = Buffer.concat(mBody).toString();
             var objJsonRequest = JSON.parse(mBody);
-            
+
             // Handle missing properties
             if (
                 !objJsonRequest.sTestClassName ||
@@ -85,10 +85,11 @@ const objServer = http.createServer(function(objRequest, objResponse) {
 
             // Final location for html diff file
             var sDiffFileLocation = sFullPathToHTML + path.sep + sTestHtmlName;
-            
+
             // Final HTML to place in diff file
             var sHTMLParsed = pretty(sTestHtml, {
-                indent_size: 4
+                indent_size: 4,
+                wrap_line_length: 0
             });
 
             // Write the html file
@@ -115,5 +116,5 @@ const objServer = http.createServer(function(objRequest, objResponse) {
             )
         );
     }
-    
-}).listen(iServerPort); // With specified port
+
+}).listen(iServerPort); // With specified por
