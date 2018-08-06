@@ -9,7 +9,6 @@ if (typeof a24GetElementFromText === "undefined") {
                     return objJquery(this)[0].outerText.trim() === sText;
                 }
             );
-
         } else {
             return objJquery(sTag + ":contains('" + sText + "')");
         }
@@ -157,7 +156,8 @@ if (typeof a24TemplateCompare === "undefined") {
         sHtml = sHtml.replace(/ href="#ember\d{1,}(_root)?(_table)?"/g, ""); // Remove ember href
         sHtml = sHtml.replace(/ id="select-options-([A-Za-z0-9\-\_]+)"/g, ""); // Remove select options ids from MDB
         sHtml = sHtml.replace(/ data-activates="select-options-([A-Za-z0-9\-\_]+)"/g, "");//Remove select option ids MDB
-        sHtml = sHtml.replace(/ data-ember-action="\d{1,}(_root)?(_table)?"/g, ""); // remove ember data actions
+        sHtml = sHtml.replace(/ data-ember-action="\d{0,}(_root)?(_table)?"/g, ""); // remove ember data actions
+        sHtml = sHtml.replace(/ data-ember-action-\d{1,}="\d{0,}(_root)?(_table)?"/g, ""); // remove ember data actions
         sHtml = sHtml.replace(/ aria-owns="ember\d{1,}(_root)?(_table)?"/g, ""); // remove ember aria-owns values
         sHtml = sHtml.replace(/ aria-controls="ember\d{1,}(_root)?(_table)?"/g, ""); //remove ember aria-controls values
         sHtml = sHtml.replace(/ for="ember\d{1,}(_root)?(_table)?"/g, ""); // remove ember for values
@@ -308,7 +308,8 @@ if (typeof a24TemplateCompareWithSave === "undefined") {
         sHtml = sHtml.replace(/ href="#ember\d{1,}(_root)?(_table)?"/g, ""); // Remove ember href
         sHtml = sHtml.replace(/ id="select-options-([A-Za-z0-9\-\_]+)"/g, ""); // Remove select options ids from MDB
         sHtml = sHtml.replace(/ data-activates="select-options-([A-Za-z0-9\-\_]+)"/g, "");//Remove select option ids MDB
-        sHtml = sHtml.replace(/ data-ember-action="\d{1,}(_root)?(_table)?"/g, ""); // remove ember data actions
+        sHtml = sHtml.replace(/ data-ember-action="\d{0,}(_root)?(_table)?"/g, ""); // remove ember data actions
+        sHtml = sHtml.replace(/ data-ember-action-\d{1,}="\d{0,}(_root)?(_table)?"/g, ""); // remove ember data actions
         sHtml = sHtml.replace(/ aria-owns="ember\d{1,}(_root)?(_table)?"/g, ""); // remove ember aria-owns values
         sHtml = sHtml.replace(/ aria-controls="ember\d{1,}(_root)?(_table)?"/g, ""); //remove ember aria-controls values
         sHtml = sHtml.replace(/ for="ember\d{1,}(_root)?(_table)?"/g, ""); // remove ember for values
@@ -828,7 +829,10 @@ if (typeof a24GenerateIntegrationSetup === "undefined") {
                         + "px; width: 100%; background-color: #D2E0E6;position: absolute;top: 0px;"
                 );
                 $("#qunit").attr("style", "position: absolute;top: " + iViewportHeight + "px;width: 100%;");
-                $("#ember-testing").attr("style", "zoom: 100% !important; background-color: #ffffff; margin: 0 auto;");
+                $("#ember-testing").attr(
+                    "style",
+                    "zoom: 100% !important; background-color: #ffffff; margin: 0 auto; transform:none !important;"
+                );
                 a24SetBrowserWidth(objEmber, this, funcSetBreakpointForTest, 1240);
                 a24SetBrowserHeight(objEmber, 720);
                 // ***********************************

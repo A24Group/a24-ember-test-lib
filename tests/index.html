@@ -27,6 +27,12 @@
     <script src="{{rootURL}}assets/dummy.js"></script>
     <script src="{{rootURL}}assets/tests.js"></script>
 
+    <script>
+        //By default test that fail will be run first the next time around, this stops that from happening since
+        //some test may rely on other test to finish
+        QUnit.config.reorder = false;
+    </script>
+
     {{content-for "body-footer"}}
     {{content-for "test-body-footer"}}
   </body>
