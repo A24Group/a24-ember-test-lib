@@ -8,10 +8,16 @@ module.exports = {
 
         //Testing helpers
         app.import({test: "vendor/a24testLib/testCaseHelpersExtend.js"});
+    },
+
+    // For eslint to run during test we need isDevelopingAddon to return true. So below it will return true when
+    // the ENV is test AND when the module running matches the addon. So test in parent app will NOT run eslint in this
+    // addon, thus if an addon has failing eslint test it will not break the parent apps test.
+    isDevelopingAddon: function() {
+        if (process.env.EMBER_ENV === "test" && this.app && this.moduleName() === this.app.project.name()) {
+            return true;
+        } else {
+            return false; //For devs, toggle this flag to true to enable dev mode during serve
+        }
     }
-    // This needs to be removed (or be true, but since I cant commit that way I leave it commented out) for ESLint
-    // to also run for actual file during test, else it will only run lint for the test files.
-    // ,isDevelopingAddon: function() {
-    //     return true;
-    // }
 };
