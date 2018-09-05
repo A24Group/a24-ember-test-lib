@@ -179,6 +179,10 @@ if (typeof a24TemplateCompare === "undefined") {
         sHtml = sHtml.replace(/touch-action:[\s][\S]*;/g, "");// With no spaces
 
         //Here we strip css properties based on flags
+        if (objAssert.bStripTabIndex) {
+            sHtml = sHtml.replace(/ tabindex="[-]?\d{1,}"/g, ""); // Removes the tab index
+        }
+
         if (objAssert.bStripCssHeight) {
             // Have to do 4 separate since the order matters
             sHtml = sHtml.replace(/[\s]height:[\s][\S]*px;[\s]/g, " ");// With space in front and back
@@ -331,6 +335,10 @@ if (typeof a24TemplateCompareWithSave === "undefined") {
         sHtml = sHtml.replace(/touch-action:[\s][\S]*;/g, "");// With no spaces
 
         //Here we strip css properties based on flags
+        if (objAssert.bStripTabIndex) {
+            sHtml = sHtml.replace(/ tabindex="[-]?\d{1,}"/g, ""); // Removes the tab index
+        }
+        
         if (objAssert.bStripCssHeight) {
             // Have to do 4 separate since the order matters
             sHtml = sHtml.replace(/[\s]height:[\s][\S]*px;[\s]/g, " ");// With space in front and back
