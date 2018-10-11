@@ -39,7 +39,7 @@ if (typeof a24SetInputDropdownValue === "undefined") {
             function() {
                 a24GetElementFromText(
                     $, "label", sFieldName, true
-                ).eq(0).parent().find("input.select-dropdown").eq(0).click();
+                ).eq(0).parent().find("input.select-dropdown").eq(0).focus().click();
             }
         );
 
