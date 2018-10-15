@@ -1,6 +1,6 @@
 {
     "name": "a24-ember-test-lib",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "A standardised set of ember test improvements focussing on stricter comparisons.",
     "keywords": [
         "ember-addon"

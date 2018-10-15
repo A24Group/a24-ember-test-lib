@@ -33,21 +33,23 @@ if (typeof a24SetInputTextValue === "undefined") {
 
 if (typeof a24SetInputDropdownValue === "undefined") {
     var a24SetInputDropdownValue = function (sFieldName, iSelectItemIndex) {
+        var sDropdownId = "";
         a24DoTask(
             100,
             function() {
                 a24GetElementFromText(
                     $, "label", sFieldName, true
-                ).eq(0).parent().find("input.select-dropdown").eq(0).click();
+                ).eq(0).parent().find("input.select-dropdown").eq(0).focus().click();
             }
         );
 
         a24DoTask(
             600,
             function() {
-                a24GetElementFromText(
+                sDropdownId = a24GetElementFromText(
                     $, "label", sFieldName, true
-                ).eq(0).parent().find("ul.dropdown-content li").eq(iSelectItemIndex).click();
+                ).eq(0).parent().find("input.select-dropdown").eq(0).attr("data-activates");
+                $("#" + sDropdownId).parent().find("ul.dropdown-content li").eq(iSelectItemIndex).click()
                 a24GetElementFromText(
                     $, "label", sFieldName, true
                 ).eq(0).parent().find("input.select-dropdown").blur();
@@ -61,9 +63,7 @@ if (typeof a24SetInputDropdownValue === "undefined") {
                 //Reset the values that were calced when the dropdown was shown, this is done to help the template
                 //compare pass. (The width and top will get calced each time the dropdown is opened, so doing this wont
                 //change how the dropdown works)
-                a24GetElementFromText(
-                    $, "label", sFieldName, true
-                ).eq(0).parent().find("ul.dropdown-content").css({
+                $("#" + sDropdownId).parent().find("ul.dropdown-content").css({
                     width: "0",
                     top: "0",
                     left: "0"
@@ -338,7 +338,7 @@ if (typeof a24TemplateCompareWithSave === "undefined") {
         if (objAssert.bStripTabIndex) {
             sHtml = sHtml.replace(/ tabindex="[-]?\d{1,}"/g, ""); // Removes the tab index
         }
-        
+
         if (objAssert.bStripCssHeight) {
             // Have to do 4 separate since the order matters
             sHtml = sHtml.replace(/[\s]height:[\s][\S]*px;[\s]/g, " ");// With space in front and back
