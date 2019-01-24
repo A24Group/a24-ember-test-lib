@@ -31,6 +31,22 @@ if (typeof a24SetInputTextValue === "undefined") {
     }
 }
 
+if (typeof a24SetAddressSuggestValue === "undefined") {
+    var a24SetAddressSuggestValue = function (sFieldName, mValue, iIndex) {
+        a24DoTask(
+            100,
+            function() {
+                if (typeof iIndex === "undefined") {
+                    iIndex = 0;
+                }
+                a24GetElementFromText(
+                    $, "label", sFieldName, true
+                ).eq(iIndex).parent().find("input").eq(0).trigger("onSetAddressSuggestForTest", mValue);
+            }
+        );
+    };
+}
+
 if (typeof a24SetInputDropdownValue === "undefined") {
     var a24SetInputDropdownValue = function (sFieldName, iSelectItemIndex) {
         var sDropdownId = "";
