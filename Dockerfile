@@ -8,6 +8,9 @@ RUN mkdir ~/.ssh
 # Set the current working directory
 WORKDIR /usr/src/app
 
+# This is to remove the old updates source that has been removed
+RUN sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list
+
 # APT DEFAULTS
 RUN apt-get update
 RUN apt-get -y install curl git openssh-server wget
