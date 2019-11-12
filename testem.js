@@ -15,7 +15,11 @@ module.exports = {
                 "--no-sandbox",
                 "--disable-gpu",
                 "--headless",
-                "--remote-debugging-port=0"
+                "--remote-debugging-port=0",
+                "--disable-dev-shm-usage",
+                "--disable-software-rasterizer",
+                "--mute-audio",
+                "--window-size=1440,900"
             ].filter(Boolean)
         }
     }
