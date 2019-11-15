@@ -1,6 +1,6 @@
 {
   "name": "a24-ember-test-lib",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A standardised set of ember test improvements focussing on stricter comparisons.",
   "keywords": [
     "ember-addon"
@@ -29,6 +29,7 @@
     "ember-responsive": "^2.0.8"
   },
   "devDependencies": {
+    "@ember/jquery": "^1.1.0",
     "@ember/optional-features": "^0.6.3",
     "broccoli-asset-rev": "^2.7.0",
     "ember-ajax": "^3.1.0",
