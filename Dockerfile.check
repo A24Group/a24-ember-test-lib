@@ -1,3 +1,0 @@
-FROM debian:jessie
-
-EXPOSE 3000
