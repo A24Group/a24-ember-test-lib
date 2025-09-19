@@ -1,5 +1,5 @@
 # Docker file that will be used to deploy our projects to firebase
-FROM debian:jessie
+FROM debian:sid-slim
 
 # Create the required directories
 RUN mkdir -p /usr/src/app
@@ -8,20 +8,18 @@ RUN mkdir ~/.ssh
 # Set the current working directory
 WORKDIR /usr/src/app
 
-# This is to remove the old updates source that has been removed
-RUN sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list
-
 # APT DEFAULTS
 RUN apt-get update
-RUN apt-get -y install curl git openssh-server wget
+RUN apt-get -y install curl git openssh-server wget gpg
 
 # Install Chrome
-RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/chrome.list
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list
+RUN wget -O- https://dl.google.com/linux/linux_signing_key.pub |gpg --dearmor > /etc/apt/trusted.gpg.d/google.gpg
 RUN set -x \
     && apt-get update \
     && apt-get install -y \
         xvfb \
+        libgtk-3-0 \
         google-chrome-stable
 RUN ln -sf /usr/bin/xvfb-chrome /usr/bin/google-chrome
 ENV CHROME_BIN /usr/bin/google-chrome
