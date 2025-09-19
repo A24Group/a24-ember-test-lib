@@ -16,7 +16,7 @@ steps:
 # Run the tests
 - name: 'cloud_build_helper'
   entrypoint: 'image-bash-cmd'
-  args: ['a24-ember-test-lib', '"source /etc/profile && cd testPrep && ls -lah && node templatePrepare.js && cd .. && node_modules/.bin/ember test"']
+  args: ['a24-ember-test-lib', '"source /etc/profile && node_modules/.bin/ember test"']
 
 # Trigger the rest of the build chain
 - name: 'eu.gcr.io/registry-153916/cloud_build_helper_gcloud'
